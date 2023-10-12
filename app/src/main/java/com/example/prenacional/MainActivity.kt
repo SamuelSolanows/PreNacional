@@ -24,7 +24,24 @@ class MainActivity : AppCompatActivity() {
         binding.uno.setOnClickListener {
             MostrarUsuario()
         }
+
+
+
     }
+
+//    private fun Actualizaruiser(){
+//
+//
+//        Retrofit.builder.ActualizarUsuario().enqueue(object :Callback<Usuario>{
+//            override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onFailure(call: Call<Usuario>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//        })
+//    }
 
     private fun MostrarUsuario() {
         binding.txt.setText("")

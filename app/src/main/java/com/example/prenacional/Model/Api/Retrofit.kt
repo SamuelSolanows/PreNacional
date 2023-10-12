@@ -7,7 +7,7 @@ object Retrofit {
 
     private var retrofit =
         Retrofit.Builder()
-            .baseUrl("http://192.168.101.9:1234/api/")
+            .baseUrl("http://192.168.110.251:1234/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

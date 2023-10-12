@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Body
 
 interface Llamadas {
     @GET("Usuario")
@@ -15,7 +16,7 @@ interface Llamadas {
 
 
     @POST
-    fun ActualizarUsuario():Call<*>
-
-
+    fun ActualizarUsuario(@Body actualizar:ActualizarUsuarioDto):Call<Usuario>
 }
+
+data class ActualizarUsuarioDto(val Nombre:String,val Apellido:String)
