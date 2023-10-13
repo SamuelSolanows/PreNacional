@@ -32,14 +32,37 @@ class MainActivity : AppCompatActivity() {
         binding.Eliminar.setOnClickListener {
             EliminarUsuario()
         }
+        binding.Actualizar.setOnClickListener {
+            ActualizarUsuario()
+        }
+    }
+
+    private fun ActualizarUsuario() {
+        binding.etxt.setText("")
+        if (binding.etxt.text.toString().isNotEmpty()) {
+            var id = binding.etxt.text.toString()
+
+            var actualizar = Usuario(0, "", "", "", "", 2)
+            Retrofit.builder.ActualizarUsuario(id, actualizar).enqueue(object : Callback<Usuario> {
+                override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                    Toast.makeText(this@MainActivity, "Actualizao", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(call: Call<Usuario>, t: Throwable) {
+                    t.message?.let { Log.e("Error", it) }
+                }
+            })
+        }
+
     }
 
     private fun EliminarUsuario() {
-        binding.etxt.setText("")
+        binding.txt.setText("")
         var id = binding.etxt.text.toString()
         Retrofit.builder.EliminarUsuario(id).enqueue(object : Callback<Usuario> {
             override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
                 Toast.makeText(this@MainActivity, "Eliminao", Toast.LENGTH_SHORT).show()
+                MostrarTodosUsuarios()
             }
 
             override fun onFailure(call: Call<Usuario>, t: Throwable) {
@@ -66,6 +89,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun MostrarUsuario() {
+
         binding.txt.setText("")
         var id = binding.etxt.text.toString()
         Retrofit.builder.GeUser(id).enqueue(object : Callback<List<Usuario>> {
