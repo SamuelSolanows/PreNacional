@@ -26,29 +26,51 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
+        binding.Agregar.setOnClickListener {
+            AgregarUsuario()
+        }
+        binding.Eliminar.setOnClickListener {
+            EliminarUsuario()
+        }
     }
 
-//    private fun Actualizaruiser(){
-//
-//
-//        Retrofit.builder.ActualizarUsuario().enqueue(object :Callback<Usuario>{
-//            override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onFailure(call: Call<Usuario>, t: Throwable) {
-//                TODO("Not yet implemented")
-//            }
-//        })
-//    }
+    private fun EliminarUsuario() {
+        binding.etxt.setText("")
+        var id = binding.etxt.text.toString()
+        Retrofit.builder.EliminarUsuario(id).enqueue(object : Callback<Usuario> {
+            override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                Toast.makeText(this@MainActivity, "Eliminao", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(call: Call<Usuario>, t: Throwable) {
+                t.message?.let { Log.e("Error", it) }
+            }
+        })
+    }
+
+    private fun AgregarUsuario() {
+
+        var newUser = Usuario(0, "Juan", "Mejia", "Jdmejia@gmail.com", "2347865809", 1)
+
+        Retrofit.builder.InsertarUsuario(newUser).enqueue(object : Callback<Usuario> {
+            override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
+                Toast.makeText(this@MainActivity, "Se Ingreso el usuario", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+            override fun onFailure(call: Call<Usuario>, t: Throwable) {
+                t.message?.let { Log.e("Error", it) }
+            }
+        })
+    }
+
 
     private fun MostrarUsuario() {
         binding.txt.setText("")
-        var id=binding.etxt.text.toString()
-        Retrofit.builder.GeUser(id).enqueue(object : Callback<List<Usuario>>{
+        var id = binding.etxt.text.toString()
+        Retrofit.builder.GeUser(id).enqueue(object : Callback<List<Usuario>> {
             override fun onResponse(call: Call<List<Usuario>>, response: Response<List<Usuario>>) {
-                var usuario=response.body()
+                var usuario = response.body()
                 usuario!!.forEach {
                     binding.txt.setText(it.Nombre)
                 }

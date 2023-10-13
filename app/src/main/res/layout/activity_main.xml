@@ -38,5 +38,22 @@
         android:layout_margin="20dp"
         android:text="uno" />
 
+    <Button
+        android:id="@+id/Agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationY="120dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="Agregar" />
+    <Button
+        android:id="@+id/Eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:translationY="180dp"
+        android:text="Eliminar" />
+
 
 </FrameLayout>

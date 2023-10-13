@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 
 interface Llamadas {
     @GET("Usuario")
@@ -16,7 +17,11 @@ interface Llamadas {
 
 
     @POST
-    fun ActualizarUsuario(@Body actualizar:ActualizarUsuarioDto):Call<Usuario>
+    fun InsertarUsuario(@Body insertar: Usuario): Call<Usuario>
+
+
+    @DELETE("Usuario/{id}")
+    fun EliminarUsuario(@Path("id") Id: String): Call<Usuario>
+
 }
 
-data class ActualizarUsuarioDto(val Nombre:String,val Apellido:String)
