@@ -26,8 +26,8 @@ interface Llamadas {
     fun EliminarUsuario(@Path("id") Id: String): Call<Usuario>
 
 
-    @PUT("Usuario/?ID=id")
-    fun ActualizarUsuario(@Query("") Id: String, @Body actualizar: Usuario): Call<Usuario>
+    @PUT("Usuario/{id}")
+    fun ActualizarUsuario(@Path("id") Id: String, @Body actualizar: Usuario): Call<Usuario>
 
 }
 

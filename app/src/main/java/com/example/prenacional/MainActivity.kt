@@ -37,12 +37,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun ActualizarUsuario() {
         binding.etxt.setText("")
         if (binding.etxt.text.toString().isNotEmpty()) {
             var id = binding.etxt.text.toString()
 
-            var actualizar = Usuario(0, "", "", "", "", 2)
+            var actualizar = Usuario(id.toInt(), "", "", "", "", 2)
             Retrofit.builder.ActualizarUsuario(id, actualizar).enqueue(object : Callback<Usuario> {
                 override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
                     Toast.makeText(this@MainActivity, "Actualizao", Toast.LENGTH_SHORT).show()
@@ -61,8 +62,14 @@ class MainActivity : AppCompatActivity() {
         var id = binding.etxt.text.toString()
         Retrofit.builder.EliminarUsuario(id).enqueue(object : Callback<Usuario> {
             override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
-                Toast.makeText(this@MainActivity, "Eliminao", Toast.LENGTH_SHORT).show()
-                MostrarTodosUsuarios()
+                if (response.isSuccessful) {
+                    Toast.makeText(this@MainActivity, "Eliminao", Toast.LENGTH_SHORT).show()
+                    MostrarTodosUsuarios()
+                } else {
+                    Toast.makeText(this@MainActivity, response.code().toString(), Toast.LENGTH_SHORT).show()
+                    Log.e("error", response.message())
+                }
+
             }
 
             override fun onFailure(call: Call<Usuario>, t: Throwable) {
@@ -73,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun AgregarUsuario() {
 
-        var newUser = Usuario(0, "Juan", "Mejia", "Jdmejia@gmail.com", "2347865809", 1)
+        var newUser = Usuario(1, "Samuel", "Solano", "Samuelsolanoama@gmail.com", "3244123104", 1)
 
         Retrofit.builder.InsertarUsuario(newUser).enqueue(object : Callback<Usuario> {
             override fun onResponse(call: Call<Usuario>, response: Response<Usuario>) {
